@@ -1,0 +1,7 @@
+source "${LOAD_CONF_PATH}"
+
+"${SAY_HELLO_PATH}" "${NAME_1}"
+"${SAY_HELLO_PATH}" "${NAME_2}"
+"${SAY_HELLO_PATH}" "${NAME_3}"
+"${SAY_HELLO_PATH}" "${NAME_4}"
+"${SAY_HELLO_PATH}" "${NAME_5}"
