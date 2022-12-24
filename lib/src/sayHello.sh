@@ -1,1 +1,1 @@
-echo "Hello $1!"
+node "${SCRIPT_PATH}" "$1"
