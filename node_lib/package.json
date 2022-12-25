@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "chalk": "^5"
+  },
+  "description": "Prints a greeting.",
+  "bin": {
+    "node-say-hello": "bin/cli.js"
+  },
+  "license": "ISC",
+  "name": "node-lib",
+  "repository": "https://github.com/mstream/nix-presentation",
+  "type": "module",
+  "version": "1.0.0"
+}
