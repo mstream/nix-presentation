@@ -7,4 +7,10 @@ if (!personName) {
   process.exit(1)
 }
 
-console.info(`${chalk.blue('Hello ')}${chalk.red(personName)}${chalk.blue('!')}`)
+const text =
+  chalk.blackBright('(Node) ') +
+  chalk.blue('Hello ') +
+  chalk.red(personName) +
+  chalk.blue('!')
+
+console.info(text)
