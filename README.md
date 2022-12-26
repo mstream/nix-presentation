@@ -3,5 +3,5 @@
 ## Executing the demo application
 
 ```bash
-$(nix-store -r $(nix-instantiate default.nix))/bin/hello.sh
+$(nix build --no-link --print-out-paths)/bin/hello.sh
 ```

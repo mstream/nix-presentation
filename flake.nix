@@ -19,7 +19,7 @@
         pkgs = import nixpkgs { inherit system; };
         bashLib = pkgs.callPackage ./bash_lib/default.nix { };
         buildConf = import ./build_conf/default.nix;
-        nodeLib = import ./node_lib/default.nix { inherit pkgs; };
+        nodeLib = import ./node_lib/default.nix { inherit pkgs; nodejs = pkgs.nodejs; };
         runtimeConf = pkgs.callPackage ./runtime_conf/default.nix { };
         defaultPackage = pkgs.callPackage
           ./app/default.nix
