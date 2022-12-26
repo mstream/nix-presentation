@@ -1,0 +1,30 @@
+{
+  description = "An example Nix flake";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { flake-utils, nixpkgs, self, ... }:
+    let
+      supportedSystems = [
+        "aarch64-darwin"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ];
+    in
+    flake-utils.lib.eachSystem supportedSystems (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+        bashLib = import ./bash_lib/default.nix { inherit pkgs; };
+        buildConf = import ./build_conf/default.nix;
+        nodeLib = import ./node_lib/default.nix { inherit pkgs; };
+        runtimeConf = import ./runtime_conf/default.nix { inherit pkgs; };
+        defaultPackage = import ./app/default.nix {
+          inherit bashLib buildConf nodeLib pkgs runtimeConf;
+        };
+      in
+      { inherit defaultPackage; }
+    );
+}
