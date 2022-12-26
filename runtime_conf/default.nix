@@ -8,7 +8,7 @@ stdenv.mkDerivation {
   name = "runtime-conf";
   src = fetchgit {
     url = "https://github.com/mstream/nix-presentation";
-    rev = "";
-    sha256 = "";
+    rev = "e9850e98b370692a980e1e3378df201b71b0b53e";
+    sha256 = "sha256-iNI+CvLT9f8KedUcfFLUFQrYWjagaADqlaXutUwzomI=";
   };
 } 
