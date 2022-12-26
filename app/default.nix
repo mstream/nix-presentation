@@ -1,12 +1,12 @@
-{ buildConf, bashLib, nodeLib, pkgs, runtimeConf, ... }:
+{ buildConf, bashLib, makeWrapper, nodeLib, runtimeConf, stdenv, ... }:
 
-pkgs.stdenv.mkDerivation {
+stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp $src/hello.sh $out/bin/hello.sh
   '';
   name = "app";
-  nativeBuildInputs = [ pkgs.makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
   postFixup = ''
     wrapProgram $out/bin/hello.sh \
       --set NAME_1 ${buildConf.name1} \

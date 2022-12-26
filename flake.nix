@@ -17,13 +17,13 @@
     flake-utils.lib.eachSystem supportedSystems (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        bashLib = import ./bash_lib/default.nix { inherit pkgs; };
+        bashLib = pkgs.callPackage ./bash_lib/default.nix { };
         buildConf = import ./build_conf/default.nix;
         nodeLib = import ./node_lib/default.nix { inherit pkgs; };
-        runtimeConf = import ./runtime_conf/default.nix { inherit pkgs; };
-        defaultPackage = import ./app/default.nix {
-          inherit bashLib buildConf nodeLib pkgs runtimeConf;
-        };
+        runtimeConf = pkgs.callPackage ./runtime_conf/default.nix { };
+        defaultPackage = pkgs.callPackage
+          ./app/default.nix
+          { inherit bashLib buildConf nodeLib pkgs runtimeConf; };
       in
       { inherit defaultPackage; }
     );
