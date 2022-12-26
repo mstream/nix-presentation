@@ -1,4 +1,4 @@
-{ stdenv, ... }:
+{ makeWrapper, stdenv, ... }:
 
 stdenv.mkDerivation {
   installPhase = ''
@@ -6,5 +6,9 @@ stdenv.mkDerivation {
     cp $src/sayHello.sh $out/bin/sayHello.sh
   '';
   name = "bash-lib";
+  nativeBuildInputs = [ makeWrapper ];
+  postFixup = ''
+    wrapProgram $out/bin/sayHello.sh
+  '';
   src = ./src;
 } 

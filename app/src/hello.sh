@@ -1,9 +1,7 @@
 source "${LOAD_CONF_PATH}"
 
-"${BASH_SAY_HELLO_PATH}" "${NAME_1}"
-"${BASH_SAY_HELLO_PATH}" "${NAME_2}"
-"${BASH_SAY_HELLO_PATH}" "${NAME_3}"
-"${BASH_SAY_HELLO_PATH}" "${NAME_4}"
-"${BASH_SAY_HELLO_PATH}" "${NAME_5}"
-
-"${NODE_SAY_HELLO_PATH}" "${NAME_1}"
+for NAME in "${NAME_1}" "${NAME_2}" "${NAME_3}" "${NAME_4}" "${NAME_5}"
+do
+  "${BASH_SAY_HELLO_PATH}" "${NAME}"
+  "${NODE_SAY_HELLO_PATH}" "${NAME}"
+done
