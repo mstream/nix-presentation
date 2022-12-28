@@ -33,21 +33,25 @@
         bashLib = pkgs.callPackage ./bash_lib/default.nix
           { };
         buildConf = import ./build_conf/default.nix;
-        nodeLib = import ./node_lib/default.nix
-          { inherit pkgs; nodejs = pkgs.nodejs; };
+        nodeLib = (import ./node_lib/default.nix
+          { inherit pkgs; nodejs = pkgs.nodejs; }
+        ).package;
         runtimeConf = pkgs.callPackage ./runtime_conf/default.nix
           { };
         hello = pkgs.callPackage ./hello/default.nix
           { inherit bashLib buildConf nodeLib pkgs runtimeConf; };
       in
         /* 
-          We produce one default app and default package output per system,
+          We produce one default app output per system,
           which is built from the expression of the app/default.nix,
           but potentially flake can provide many of them.
           The 'apps' attribute means that its entries contain executables 
           that `nix run` command can run. The 'default' attribute means
           that that if we do not provide any application name for that 
           command, the application assigned to it will be executed.
+          On top of that, we expose the hello application and libraries 
+          it depends on as package outputs so we can easily build them
+          individually if we want.
           To examine all the outputs produced by this flake, we can run
           `nix flake show` from the directory that this flake resides.
         */
@@ -56,7 +60,10 @@
           drv = hello;
           name = "hello.sh";
         };
-        packages.default = hello;
+        packages = {
+          inherit bashLib nodeLib;
+          default = hello;
+        };
       }
     );
 }
