@@ -41,7 +41,7 @@
           { inherit bashLib buildConf nodeLib pkgs runtimeConf; };
       in
         /* 
-          We produce one default app output per system,
+          We produce one default app and default package output per system,
           which is built from the expression of the app/default.nix,
           but potentially flake can provide many of them.
           The 'apps' attribute means that its entries contain executables 
@@ -56,6 +56,7 @@
           drv = hello;
           name = "hello.sh";
         };
+        packages.default = hello;
       }
     );
 }
