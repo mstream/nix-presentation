@@ -5,7 +5,7 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     cp $src/hello.sh $out/bin/hello.sh
   '';
-  name = "app";
+  name = "hello";
   nativeBuildInputs = [ makeWrapper ];
   postFixup = ''
     wrapProgram $out/bin/hello.sh \

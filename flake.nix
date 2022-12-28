@@ -1,24 +1,20 @@
 {
   description = "An example Nix flake";
-
   /*
     A set of all dependencies of the flake.
   */
   inputs = {
-
     /*
       Nixpkgs is a community-maintained collection of helper functions 
       and expression for derivations building packages of popular software.
     */
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
-
     /*
       Flake-utils is a collection of functions which simplify writing
       Nix flakes.
     */
     flake-utils.url = "github:numtide/flake-utils";
   };
-
   /*
     A function which accepts inputs and produces one or many outputs.
   */
@@ -41,14 +37,25 @@
           { inherit pkgs; nodejs = pkgs.nodejs; };
         runtimeConf = pkgs.callPackage ./runtime_conf/default.nix
           { };
-        defaultPackage = pkgs.callPackage ./app/default.nix
+        hello = pkgs.callPackage ./hello/default.nix
           { inherit bashLib buildConf nodeLib pkgs runtimeConf; };
       in
         /* 
-          We produce only one output per CPU architecture, 
+          We produce one default app output per system,
           which is built from the expression of the app/default.nix,
-          but potentially flake can provide many of them. 
+          but potentially flake can provide many of them.
+          The 'apps' attribute means that its entries contain executables 
+          that `nix run` command can run. The 'default' attribute means
+          that that if we do not provide any application name for that 
+          command, the application assigned to it will be executed.
+          To examine all the outputs produced by this flake, we can run
+          `nix flake show` from the directory that this flake resides.
         */
-      { inherit defaultPackage; }
+      {
+        apps.default = flake-utils.lib.mkApp {
+          drv = hello;
+          name = "hello.sh";
+        };
+      }
     );
 }
