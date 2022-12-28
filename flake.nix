@@ -64,7 +64,8 @@
           DevShell allows to spawn a Bash shell with a customized setup.
           Here, we set it up with all inputs required by the 'hello' 
           application and its libraries. On top of that, a Git package.
-          The shell is run with `nix develop` command.
+          The shell is run with `nix develop` command. It is also 
+          possible to make direnv load it automatically.  
         */
         devShell = pkgs.mkShell {
           inputsFrom = [ bashLib hello nodeLib ];

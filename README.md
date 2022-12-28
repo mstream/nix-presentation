@@ -13,3 +13,7 @@ $(nix build --no-link --print-out-paths)/bin/hello.sh
 ```bash
 nix run
 ```
+
+## Direnv integration
+
+Instruction [here](https://github.com/nix-community/nix-direnv).
