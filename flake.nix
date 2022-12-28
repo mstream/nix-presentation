@@ -60,6 +60,10 @@
           drv = hello;
           name = "hello.sh";
         };
+        devShell = pkgs.mkShell {
+          inputsFrom = [ bashLib hello nodeLib ];
+          nativeBuildInputs = [ pkgs.git ];
+        };
         packages = {
           inherit bashLib nodeLib;
           default = hello;
