@@ -22,7 +22,6 @@
       flake = false;
       url = "github:justinwoo/spago2nix";
     };
-    statix.url = "github:nerdypepper/statix";
   };
   /*
     A function which accepts inputs and produces one or many outputs.
@@ -32,7 +31,6 @@
     , flake-utils
     , nixpkgs
     , spago2nix
-    , statix
     , ...
     }:
     let
@@ -99,7 +97,6 @@
           nix-prefetch-git
           nodejs
           nodePackages.node2nix
-          statix
           (import spago2nix { inherit pkgs; })
         ];
       };

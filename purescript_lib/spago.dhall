@@ -1,5 +1,14 @@
 { name = "purescript-lib"
-, dependencies = [ "console", "effect", "node-process", "prelude" ]
+, dependencies =
+  [ "aff"
+  , "arrays"
+  , "console"
+  , "effect"
+  , "maybe"
+  , "node-process"
+  , "prelude"
+  , "spec"
+  ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
 }

@@ -5,6 +5,6 @@
   specific 'nodejs' package binary in the Nix store.
 */
 
-import {main} from '../app.js'
+import {main} from '../test.js'
 
 main()
