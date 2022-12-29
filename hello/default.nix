@@ -1,4 +1,12 @@
-{ buildConf, bashLib, makeWrapper, nodeLib, runtimeConf, stdenv, ... }:
+{ buildConf
+, bashLib
+, makeWrapper
+, nodeLib
+, purescriptLib
+, runtimeConf
+, stdenv
+, ...
+}:
 
 stdenv.mkDerivation {
   installPhase = ''
@@ -13,6 +21,7 @@ stdenv.mkDerivation {
       --set NAME_2 ${buildConf.name2} \
       --set BASH_SAY_HELLO_PATH ${bashLib}/bin/sayHello.sh \
       --set NODE_SAY_HELLO_PATH ${nodeLib}/lib/node_modules/node-lib/bin/cli.js \
+      --set PURESCRIPT_SAY_HELLO_PATH ${purescriptLib}/bin/cli.mjs \
       --set LOAD_CONF_PATH ${runtimeConf}/bin/loadConf.sh 
   '';
   src = ./src;
