@@ -79,9 +79,23 @@
         `nix flake show` from the directory that this flake resides.
       */
     {
-      apps.default = flake-utils.lib.mkApp {
-        drv = hello;
-        name = "hello.sh";
+      apps = {
+        bash = flake-utils.lib.mkApp {
+          drv = bashLib;
+          name = "sayHello.sh";
+        };
+        node = flake-utils.lib.mkApp {
+          drv = nodeLib;
+          name = "cli.js";
+        };
+        purescript = flake-utils.lib.mkApp {
+          drv = purescriptLib;
+          name = "cli.mjs";
+        };
+        default = flake-utils.lib.mkApp {
+          drv = hello;
+          name = "hello.sh";
+        };
       };
       /*
         DevShell allows to spawn a Bash shell with a customized setup.

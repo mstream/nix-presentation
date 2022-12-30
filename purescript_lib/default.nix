@@ -10,6 +10,7 @@
 
 stdenv.mkDerivation {
   buildInputs = [
+    nodejs
     spago-pkgs.installSpagoStyle
     spago-pkgs.buildSpagoStyle
   ];
@@ -38,7 +39,6 @@ stdenv.mkDerivation {
   '';
   name = "purescript-lib";
   nativeBuildInputs = [
-    nodejs
     purs
     spago
     esbuild

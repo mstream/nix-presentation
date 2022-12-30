@@ -10,6 +10,7 @@ pkgs.stdenv.mkDerivation {
   /* 
     Produce application and test bundle.
   */
+  buildInputs = with pkgs; [ nodejs ];
   buildPhase = ''
     esbuild src/index.js --bundle --outfile=app.js --platform=node
     esbuild test/index.js --bundle --outfile=test.js --platform=node
@@ -30,9 +31,8 @@ pkgs.stdenv.mkDerivation {
     cp $src/bin/cli.js $out/bin/
   '';
   name = "node-lib";
-  nativeBuildInputs = [
-    pkgs.nodejs
-    pkgs.esbuild
+  nativeBuildInputs = with pkgs; [
+    esbuild
   ];
   src = ./.;
   unpackPhase = ''
