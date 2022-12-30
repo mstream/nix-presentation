@@ -1,9 +1,10 @@
 { buildConf
 , bashLib
+, localRuntimeConf
 , makeWrapper
 , nodeLib
 , purescriptLib
-, runtimeConf
+, remoteRuntimeConf
 , stdenv
 , ...
 }:
@@ -22,7 +23,8 @@ stdenv.mkDerivation {
       --set BASH_SAY_HELLO_PATH ${bashLib}/bin/sayHello.sh \
       --set NODE_SAY_HELLO_PATH ${nodeLib}/bin/cli.js \
       --set PURESCRIPT_SAY_HELLO_PATH ${purescriptLib}/bin/cli.mjs \
-      --set LOAD_CONF_PATH ${runtimeConf}/bin/loadConf.sh 
+      --set LOCAL_LOAD_CONF_PATH ${localRuntimeConf}/bin/loadConf.sh \
+      --set REMOTE_LOAD_CONF_PATH ${remoteRuntimeConf}/bin/loadConf.sh 
   '';
   src = ./src;
 }

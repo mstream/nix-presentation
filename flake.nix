@@ -49,6 +49,8 @@
       bashLib = pkgs.callPackage ./bash_lib/default.nix
         { };
       buildConf = import ./build_conf/default.nix;
+      localRuntimeConf = pkgs.callPackage ./local_runtime_conf/default.nix
+        { };
       nodeLib = (import ./node_lib/default.nix
         { inherit pkgs system; }
       );
@@ -59,10 +61,19 @@
           inherit spago-pkgs;
           inherit (easy-ps) purs spago;
         };
-      runtimeConf = pkgs.callPackage ./runtime_conf/default.nix
+      remoteRuntimeConf = pkgs.callPackage ./remote_runtime_conf/default.nix
         { };
       hello = pkgs.callPackage ./hello/default.nix
-        { inherit bashLib buildConf nodeLib pkgs purescriptLib runtimeConf; };
+        {
+          inherit
+            bashLib
+            buildConf
+            localRuntimeConf
+            nodeLib
+            pkgs
+            purescriptLib
+            remoteRuntimeConf;
+        };
     in
       /* 
         We produce one default app output per system,
