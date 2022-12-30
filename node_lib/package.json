@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "chalk": "^5"
+    "chai": "^4",
+    "chalk": "^4",
+    "mocha": "^10"
   },
   "description": "Prints a greeting.",
   "bin": {
@@ -9,6 +11,9 @@
   "license": "ISC",
   "name": "node-lib",
   "repository": "https://github.com/mstream/nix-presentation",
-  "type": "module",
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "type": "commonjs",
   "version": "1.0.0"
 }

@@ -50,8 +50,8 @@
         { };
       buildConf = import ./build_conf/default.nix;
       nodeLib = (import ./node_lib/default.nix
-        { inherit pkgs; inherit (pkgs) nodejs; }
-      ).package;
+        { inherit pkgs system; }
+      );
       spago-pkgs = import ./purescript_lib/spago-packages.nix
         { inherit pkgs; };
       purescriptLib = pkgs.callPackage ./purescript_lib/default.nix

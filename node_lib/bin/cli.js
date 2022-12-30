@@ -5,4 +5,4 @@
   specific 'nodejs' package binary in the Nix store.
 */
 
-import '../src/index.js'
+require('../app.js')

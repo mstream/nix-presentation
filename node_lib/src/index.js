@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import { format } from './hello'
 
 const personName = process.argv[2]
 
@@ -7,10 +7,4 @@ if (!personName) {
   process.exit(1)
 }
 
-const text =
-  chalk.blackBright('(Node) ') +
-  chalk.blue('Hello ') +
-  chalk.red(personName) +
-  chalk.blue('!')
-
-console.info(text)
+console.info(format(personName))
