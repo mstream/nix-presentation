@@ -2,16 +2,22 @@
 
 ## Executing the demo application
 
-### Building the default package and running its executable directly from a Nix store
+### Without cloning the repository 
 
 ```bash
-$(nix build --no-link --print-out-paths)/bin/hello.sh
+nix run github:mstream/nix-presentation
 ```
 
-### By leveraging the fact that it is declared as a flake default app
+### After cloning
 
 ```bash
 nix run
+```
+
+### After cloning, with a low-level command
+
+```bash
+$(nix build --no-link --print-out-paths)/bin/hello.sh
 ```
 
 ## Direnv integration
