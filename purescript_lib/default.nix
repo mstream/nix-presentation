@@ -13,14 +13,23 @@ stdenv.mkDerivation {
     spago-pkgs.installSpagoStyle
     spago-pkgs.buildSpagoStyle
   ];
+  /* 
+    Produce application and test bundle.
+  */
   buildPhase = ''
     build-spago-style "./**/*.purs"
     esbuild output/Main/index.js --bundle --outfile=app.js --platform=node
     esbuild output/Test.Main/index.js --bundle --outfile=test.js --platform=node
   '';
+  /* 
+    Run unit tests.
+  */
   checkPhase = ''
     ./bin/test.mjs
   '';
+  /* 
+    Make the check phase execute.
+  */
   doCheck = true;
   installPhase = ''
     mkdir -p $out/bin
