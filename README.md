@@ -4,7 +4,7 @@
 
 | Language | Build Tool | Runtime | Unit-Tested |
 | :--- | :--- | :--- | :---: |
-| Bash | <none> | Bash | yes |
+| Bash |  | Bash | yes |
 | Java | SBT | JRE | no |
 | Scala |  SBT | JRE | no |
 | JavaScript | NPM | Node.js | yes |
