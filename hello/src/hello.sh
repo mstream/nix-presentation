@@ -15,4 +15,5 @@ do
   "${BASH_SAY_HELLO_PATH}" "${NAME}"
   "${NODE_SAY_HELLO_PATH}" "${NAME}"
   "${PURESCRIPT_SAY_HELLO_PATH}" "${NAME}"
+  "${SCALA_SAY_HELLO_PATH}" "${NAME}"
 done

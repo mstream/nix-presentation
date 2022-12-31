@@ -18,6 +18,10 @@
       and expression for derivations building packages of popular software.
     */
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+    sbt = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:zaninime/sbt-derivation";
+    };
     spago2nix = {
       flake = false;
       url = "github:justinwoo/spago2nix";
@@ -30,6 +34,7 @@
     { easy-purescript-nix
     , flake-utils
     , nixpkgs
+    , sbt
     , spago2nix
     , ...
     }:
@@ -54,6 +59,8 @@
       nodeLib = (import ./node_lib/default.nix
         { inherit pkgs system; }
       );
+      scalaLib = pkgs.callPackage ./scala_lib/default.nix
+        { mkSbtDerivation = sbt.mkSbtDerivation.${system}; };
       spago-pkgs = import ./purescript_lib/spago-packages.nix
         { inherit pkgs; };
       purescriptLib = pkgs.callPackage ./purescript_lib/default.nix
@@ -72,7 +79,8 @@
             nodeLib
             pkgs
             purescriptLib
-            remoteRuntimeConf;
+            remoteRuntimeConf
+            scalaLib;
         };
     in
       /* 
@@ -116,7 +124,7 @@
         possible to make direnv load it automatically.  
       */
       devShell = pkgs.mkShell {
-        inputsFrom = [ bashLib hello nodeLib purescriptLib ];
+        inputsFrom = [ bashLib hello nodeLib purescriptLib scalaLib ];
         nativeBuildInputs = with pkgs; [
           git
           nix-prefetch-git
@@ -126,7 +134,7 @@
         ];
       };
       packages = {
-        inherit bashLib nodeLib purescriptLib;
+        inherit bashLib nodeLib purescriptLib scalaLib;
         default = hello;
       };
     }
