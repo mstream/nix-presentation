@@ -47,6 +47,7 @@
     in
     flake-utils.lib.eachSystem supportedSystems (system:
     let
+      mkSbtDerivation = sbt.mkSbtDerivation.${system};
       pkgs = import nixpkgs
         { inherit system; };
       easy-ps = import easy-purescript-nix
@@ -54,13 +55,15 @@
       bashLib = pkgs.callPackage ./bash_lib/default.nix
         { };
       buildConf = import ./build_conf/default.nix;
+      javaLib = pkgs.callPackage ./java_lib/default.nix
+        { inherit mkSbtDerivation; };
       localRuntimeConf = pkgs.callPackage ./local_runtime_conf/default.nix
         { };
       nodeLib = (import ./node_lib/default.nix
         { inherit pkgs system; }
       );
       scalaLib = pkgs.callPackage ./scala_lib/default.nix
-        { mkSbtDerivation = sbt.mkSbtDerivation.${system}; };
+        { inherit mkSbtDerivation; };
       spago-pkgs = import ./purescript_lib/spago-packages.nix
         { inherit pkgs; };
       purescriptLib = pkgs.callPackage ./purescript_lib/default.nix
@@ -75,6 +78,7 @@
           inherit
             bashLib
             buildConf
+            javaLib
             localRuntimeConf
             nodeLib
             pkgs

@@ -20,6 +20,7 @@ NAMES=(
 for NAME in "${NAMES[@]}"
 do
   bashSayHello "${NAME}"
+  javaSayHello "${NAME}"
   nodeSayHello "${NAME}"
   purescriptSayHello "${NAME}"
   scalaSayHello "${NAME}"

@@ -1,5 +1,6 @@
 { buildConf
 , bashLib
+, javaLib
 , lib
 , localRuntimeConf
 , makeWrapper
@@ -12,6 +13,7 @@
 }:
 let libs = [
   bashLib
+  javaLib
   nodeLib
   purescriptLib
   scalaLib
