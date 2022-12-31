@@ -28,16 +28,19 @@ pkgs.stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp app.js $out/
-    cp $src/bin/cli.js $out/bin/
   '';
   name = "node-lib";
   nativeBuildInputs = with pkgs; [
     esbuild
+    makeWrapper
   ];
+  postFixup = ''
+    makeWrapper ${pkgs.nodejs}/bin/node $out/bin/sayHello.sh \
+      --add-flags "$out/app.js"
+  '';
   src = ./.;
   unpackPhase = ''
     cp -r ${compositionPackage}/lib/node_modules/node-lib/node_modules .
-    cp -r ${compositionPackage}/lib/node_modules/node-lib/bin .
     cp -r ${compositionPackage}/lib/node_modules/node-lib/src .
     cp -r ${compositionPackage}/lib/node_modules/node-lib/test .
   '';

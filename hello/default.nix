@@ -22,7 +22,7 @@ stdenv.mkDerivation {
       --set NAME_1 ${buildConf.name1} \
       --set NAME_2 ${buildConf.name2} \
       --set BASH_SAY_HELLO_PATH ${bashLib}/bin/sayHello.sh \
-      --set NODE_SAY_HELLO_PATH ${nodeLib}/bin/cli.js \
+      --set NODE_SAY_HELLO_PATH ${nodeLib}/bin/sayHello.sh \
       --set PURESCRIPT_SAY_HELLO_PATH ${purescriptLib}/bin/cli.mjs \
       --set SCALA_SAY_HELLO_PATH ${scalaLib}/bin/sayHello.sh \
       --set LOCAL_LOAD_CONF_PATH ${localRuntimeConf}/bin/loadConf.sh \
