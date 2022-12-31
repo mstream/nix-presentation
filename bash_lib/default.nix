@@ -23,7 +23,7 @@ stdenv.mkDerivation {
   */
   installPhase = ''
     mkdir -p $out/bin
-    cp src/sayHello.sh $out/bin/sayHello.sh
+    cp src/sayHello.sh $out/bin/bashSayHello
   '';
   name = "bash-lib";
   /*

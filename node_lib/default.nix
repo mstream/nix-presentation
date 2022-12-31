@@ -35,7 +35,7 @@ pkgs.stdenv.mkDerivation {
     makeWrapper
   ];
   postFixup = ''
-    makeWrapper ${pkgs.nodejs}/bin/node $out/bin/sayHello.sh \
+    makeWrapper ${pkgs.nodejs}/bin/node $out/bin/nodeSayHello \
       --add-flags "$out/app.js"
   '';
   src = ./.;

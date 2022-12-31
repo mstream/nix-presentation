@@ -5,6 +5,10 @@
   specific 'nodejs' package binary in the Nix store.
 */
 
-import {main} from '../app.js'
+import('../app.js')
+  .then(({main}) => main())
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+  })
 
-main()

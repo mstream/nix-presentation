@@ -12,8 +12,8 @@ NAMES=(
 
 for NAME in "${NAMES[@]}"
 do
-  "${BASH_SAY_HELLO_PATH}" "${NAME}"
-  "${NODE_SAY_HELLO_PATH}" "${NAME}"
-  "${PURESCRIPT_SAY_HELLO_PATH}" "${NAME}"
-  "${SCALA_SAY_HELLO_PATH}" "${NAME}"
+  bashSayHello "${NAME}"
+  nodeSayHello "${NAME}"
+  purescriptSayHello "${NAME}"
+  scalaSayHello "${NAME}"
 done

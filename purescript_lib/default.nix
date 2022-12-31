@@ -35,7 +35,7 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp app.js $out/
-    cp $src/bin/cli.mjs $out/bin/
+    cp $src/bin/cli.mjs $out/bin/purescriptSayHello
   '';
   name = "purescript-lib";
   nativeBuildInputs = [

@@ -18,7 +18,7 @@ mkSbtDerivation {
   nativeBuildInputs = [ jdk makeWrapper ];
   pname = "scala-lib";
   postFixup = ''
-    makeWrapper ${jre_minimal}/bin/java $out/bin/sayHello.sh \
+    makeWrapper ${jre_minimal}/bin/java $out/bin/scalaSayHello \
       --add-flags "-jar $out/scala-lib.jar"
   '';
   src = ./.;
