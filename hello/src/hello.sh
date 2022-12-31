@@ -1,5 +1,12 @@
-source "${LOCAL_LOAD_CONF_PATH}"
-source "${REMOTE_LOAD_CONF_PATH}"
+CONF_PATHS=(
+  "${LOCAL_LOAD_CONF_PATH}"
+  "${REMOTE_LOAD_CONF_PATH}"
+)
+
+for CONF_PATH in "${CONF_PATHS[@]}"
+do
+  source "${CONF_PATH}"
+done
 
 NAMES=( 
   "${NAME_1}" 
