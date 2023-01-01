@@ -17,7 +17,7 @@
       Nixpkgs is a community-maintained collection of helper functions 
       and expression for derivations building packages of popular software.
     */
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     sbt = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:zaninime/sbt-derivation";
