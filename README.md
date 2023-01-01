@@ -2,13 +2,13 @@
 
 ## Exhibited programming language integration
 
-| Language | Build Tool | Runtime | Unit-Tested |
-| :--- | :--- | :--- | :---: |
-| Bash | (none) | Bash | yes |
-| Java | SBT | JRE | yes |
-| Scala |  SBT | JRE | no |
-| JavaScript | NPM | Node.js | yes |
-| PureScript | Spago | Node.js | yes |
+| Language | Build Tool | Runtime | 
+| :--- | :--- | :--- | 
+| Bash | (none) | Bash | 
+| Java | SBT | JRE | 
+| Scala |  SBT | JRE | 
+| JavaScript | NPM | Node.js | 
+| PureScript | Spago | Node.js | 
 
 ## Executing the demo application
 

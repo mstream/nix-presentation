@@ -1,5 +1,10 @@
-scalaVersion := "2.13.8"
+scalaVersion := "2.13.10"
 name := "scala-lib"
 organization := "io.github.mstream"
 version := "1.0"
-mainClass in assembly := Some("Hello")
+libraryDependencies ++= Seq(
+  "org.scalatest" %% "scalatest" % "3.2.14" % "test",
+  "org.scalatest" %% "scalatest-funspec" % "3.2.14" % "test",
+  "org.scalactic" %% "scalactic" % "3.2.14"
+)
+mainClass in assembly := Some("Main")
