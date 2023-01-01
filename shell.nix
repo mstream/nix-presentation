@@ -1,3 +1,11 @@
+/*
+  A compatibility layer to enable to allow shell scripts
+  (like nixify.sh), which do not belong to any derivation, 
+  to be run within the same environment that the ones that do.
+
+  Currently I do not know how to make nix interpret these scripts
+  using the devShell from flake.nix directly.
+*/
 let
   flakeCompat = fetchTarball
     {
