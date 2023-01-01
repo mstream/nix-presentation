@@ -45,11 +45,10 @@
         pkgs = import
           nixpkgs
           { inherit system; };
-        easy-ps = import easy-purescript-nix
+        easy-ps = import
+          easy-purescript-nix
           { inherit pkgs; };
         mkSbtDerivation = sbt.mkSbtDerivation.${system};
-        spago-pkgs = import ./purescript_spago_lib/spago-packages.nix
-          { inherit pkgs; };
         confs = {
           buildConf = import
             ./build_conf;
@@ -73,7 +72,7 @@
           purescriptSpagoLib = pkgs.callPackage
             ./purescript_spago_lib
             {
-              inherit spago-pkgs;
+              inherit pkgs;
               inherit (easy-ps) purs spago;
             };
           scalaSbtLib = pkgs.callPackage

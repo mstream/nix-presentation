@@ -1,14 +1,17 @@
 { esbuild
 , nix-gitignore
 , nodejs
+, pkgs
 , purs
 , spago
-, spago-pkgs
 , stdenv
 , ...
 }:
 let
   name = "purescript-spago-say-hello";
+  spago-pkgs = import
+    ./spago-packages.nix
+    { inherit pkgs; };
 in
 stdenv.mkDerivation {
   inherit name;
