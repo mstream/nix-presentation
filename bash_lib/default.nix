@@ -1,8 +1,11 @@
 { stdenv
 , ...
 }:
-
+let
+  name = "bash-say-hello";
+in
 stdenv.mkDerivation {
+  inherit name;
   /* 
     Run unit tests.
   */
@@ -23,9 +26,8 @@ stdenv.mkDerivation {
   */
   installPhase = ''
     mkdir -p $out/bin
-    cp src/sayHello.sh $out/bin/bashSayHello
+    cp src/sayHello.sh $out/bin/${name}
   '';
-  name = "bash-lib";
   /*
     Source files directory. Files inside it are treated as inputs to 
     the derivation and influence its hash. This directory can be referred

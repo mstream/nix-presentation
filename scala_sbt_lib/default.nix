@@ -9,7 +9,7 @@ let
     Because pname and version are used for artifact lookup, 
     they must equal to the name and version in build.sbt.
   */
-  pname = "scala-sbt-lib";
+  pname = "scala-sbt-say-hello";
   version = "1.0.0";
   srcJarName = "${pname}-assembly-${version}.jar";
   targetJarName = "${pname}.jar";
@@ -31,7 +31,7 @@ mkSbtDerivation {
   postFixup = ''
     makeWrapper \
       ${jre_minimal}/bin/java \
-      $out/bin/scalaSbtSayHello \
+      $out/bin/${pname} \
       --add-flags "-jar $out/${targetJarName}"
   '';
   src = ./.;

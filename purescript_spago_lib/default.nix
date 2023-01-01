@@ -7,8 +7,11 @@
 , stdenv
 , ...
 }:
-
+let
+  name = "purescript-spago-say-hello";
+in
 stdenv.mkDerivation {
+  inherit name;
   buildInputs = [
     nodejs
     spago-pkgs.installSpagoStyle
@@ -35,9 +38,8 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp app.js $out/
-    cp $src/bin/cli.mjs $out/bin/purescriptSpagoSayHello
+    cp $src/bin/cli.mjs $out/bin/${name}
   '';
-  name = "purescript-spago-lib";
   nativeBuildInputs = [
     purs
     spago

@@ -99,32 +99,11 @@
           `nix flake show` from the directory that this flake resides.
         */
       {
-        apps = {
-          bash = flake-utils.lib.mkApp {
-            drv = libs.bashLib;
-            name = "bashSayHello";
-          };
-          javaSbt = flake-utils.lib.mkApp {
-            drv = libs.javaSbtLib;
-            name = "javaSbtSayHello";
-          };
-          javascriptNpm = flake-utils.lib.mkApp {
-            drv = libs.javascriptNpmLib;
-            name = "javascriptNpmSayHello";
-          };
-          purescriptSpago = flake-utils.lib.mkApp {
-            drv = libs.purescriptSpagoLib;
-            name = "purescriptSpagoSayHello";
-          };
-          scalaSbt = flake-utils.lib.mkApp {
-            drv = libs.scalaSbtLib;
-            name = "scalaSbtSayHello";
-          };
-          default = flake-utils.lib.mkApp {
-            drv = hello;
-            name = "hello.sh";
-          };
-        };
+        apps = { default = flake-utils.lib.mkApp { drv = hello; }; }
+          // (builtins.mapAttrs
+          (name: value: flake-utils.lib.mkApp { drv = value; })
+          libs
+        );
         /*
           DevShell allows to spawn a Bash shell with a customized setup.
           Here, we set it up with all inputs required by the 'hello' 

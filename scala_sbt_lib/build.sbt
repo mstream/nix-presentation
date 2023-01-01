@@ -1,5 +1,5 @@
 scalaVersion := "2.13.10"
-name := "scala-sbt-lib"
+name := "scala-sbt-say-hello"
 organization := "io.github.mstream"
 version := "1.0.0"
 libraryDependencies ++= Seq(

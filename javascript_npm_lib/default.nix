@@ -3,10 +3,15 @@
 , ...
 }:
 
-let compositionPackage = (import ./composition.nix
-  { inherit pkgs system; }).package;
+let
+  compositionPackage = (import
+    ./composition.nix
+    { inherit pkgs system; }
+  ).package;
+  name = "javascript-npm-say-hello";
 in
 pkgs.stdenv.mkDerivation {
+  inherit name;
   /* 
     Produce application and test bundle.
   */
@@ -37,7 +42,6 @@ pkgs.stdenv.mkDerivation {
     mkdir -p $out/bin
     cp app.js $out/
   '';
-  name = "javascript-npm-lib";
   nativeBuildInputs = with pkgs; [
     esbuild
     makeWrapper
@@ -45,7 +49,7 @@ pkgs.stdenv.mkDerivation {
   postFixup = ''
     makeWrapper \
       ${pkgs.nodejs}/bin/node \
-      $out/bin/javascriptNpmSayHello \
+      $out/bin/${name} \
       --add-flags "$out/app.js"
   '';
   src = ./.;

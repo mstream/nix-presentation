@@ -19,9 +19,9 @@ NAMES=(
 
 for NAME in "${NAMES[@]}"
 do
-  bashSayHello "${NAME}"
-  javaSbtSayHello "${NAME}"
-  javascriptNpmSayHello "${NAME}"
-  purescriptSpagoSayHello "${NAME}"
-  scalaSbtSayHello "${NAME}"
+  bash-say-hello "${NAME}"
+  java-sbt-say-hello "${NAME}"
+  javascript-npm-say-hello "${NAME}"
+  purescript-spago-say-hello "${NAME}"
+  scala-sbt-say-hello "${NAME}"
 done
