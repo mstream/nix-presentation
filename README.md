@@ -36,6 +36,18 @@ or
 ```bash
 $(nix build --no-link --print-out-paths)/bin/hello.sh
 ```
+## Browsing dependencies graph
+
+### Remotely
+
+```bash
+nix run github:utdemir/nix-tree -- --derivation github:mstream/nix-presentation 
+```
+### Locally
+
+```bash
+nix run github:utdemir/nix-tree -- --derivation . 
+```
 
 ## Direnv integration
 
