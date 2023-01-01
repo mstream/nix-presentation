@@ -12,19 +12,25 @@
 
 ## Executing the demo application
 
-### Without cloning the repository 
+### Remotely
 
 ```bash
 nix run github:mstream/nix-presentation
 ```
 
-### After cloning
+or
+
+```bash
+$(nix build --no-link --print-out-paths github:mstream/nix-presentation)/bin/hello.sh
+```
+
+### Locally
 
 ```bash
 nix run
 ```
 
-### After cloning, with a low-level command
+or
 
 ```bash
 $(nix build --no-link --print-out-paths)/bin/hello.sh
