@@ -42,51 +42,47 @@
       (import ./supportedSystems.nix)
       (system:
       let
-        mkSbtDerivation = sbt.mkSbtDerivation.${system};
-        pkgs = import nixpkgs
+        pkgs = import
+          nixpkgs
           { inherit system; };
         easy-ps = import easy-purescript-nix
           { inherit pkgs; };
-        bashLib = pkgs.callPackage ./bash_lib
-          { };
-        buildConf = import ./build_conf;
-        javaSbtLib = pkgs.callPackage ./java_sbt_lib
-          { inherit mkSbtDerivation; };
-        localRuntimeConf = pkgs.callPackage ./local_runtime_conf
-          { };
-        javascriptNpmLib = (import ./javascript_npm_lib
-          { inherit pkgs system; }
-        );
-        scalaSbtLib = pkgs.callPackage ./scala_sbt_lib
-          { inherit mkSbtDerivation; };
+        mkSbtDerivation = sbt.mkSbtDerivation.${system};
         spago-pkgs = import ./purescript_spago_lib/spago-packages.nix
           { inherit pkgs; };
-        purescriptSpagoLib = pkgs.callPackage ./purescript_spago_lib
-          {
-            inherit spago-pkgs;
-            inherit (easy-ps) purs spago;
-          };
-        remoteRuntimeConf = pkgs.callPackage ./remote_runtime_conf
-          { };
-        hello = pkgs.callPackage ./hello
-          {
-            inherit
-              bashLib
-              buildConf
-              javaSbtLib
-              javascriptNpmLib
-              localRuntimeConf
-              pkgs
-              purescriptSpagoLib
-              remoteRuntimeConf
-              scalaSbtLib;
-          };
-        libs = [
-          bashLib
-          javaSbtLib
-          purescriptSpagoLib
-          scalaSbtLib
-        ];
+        confs = {
+          buildConf = import
+            ./build_conf;
+          localRuntimeConf = pkgs.callPackage
+            ./local_runtime_conf
+            { };
+          remoteRuntimeConf = pkgs.callPackage
+            ./remote_runtime_conf
+            { };
+        };
+        libs = {
+          bashLib = pkgs.callPackage
+            ./bash_lib
+            { };
+          javaSbtLib = pkgs.callPackage
+            ./java_sbt_lib
+            { inherit mkSbtDerivation; };
+          javascriptNpmLib = import
+            ./javascript_npm_lib
+            { inherit pkgs system; };
+          purescriptSpagoLib = pkgs.callPackage
+            ./purescript_spago_lib
+            {
+              inherit spago-pkgs;
+              inherit (easy-ps) purs spago;
+            };
+          scalaSbtLib = pkgs.callPackage
+            ./scala_sbt_lib
+            { inherit mkSbtDerivation; };
+        };
+        hello = pkgs.callPackage
+          ./hello
+          ({ inherit pkgs; } // libs // confs);
       in
         /* 
           We produce one default app output per system,
@@ -105,23 +101,23 @@
       {
         apps = {
           bash = flake-utils.lib.mkApp {
-            drv = bashLib;
+            drv = libs.bashLib;
             name = "bashSayHello";
           };
           javaSbt = flake-utils.lib.mkApp {
-            drv = javaSbtLib;
+            drv = libs.javaSbtLib;
             name = "javaSbtSayHello";
           };
           javascriptNpm = flake-utils.lib.mkApp {
-            drv = javascriptNpmLib;
+            drv = libs.javascriptNpmLib;
             name = "javascriptNpmSayHello";
           };
           purescriptSpago = flake-utils.lib.mkApp {
-            drv = purescriptSpagoLib;
+            drv = libs.purescriptSpagoLib;
             name = "purescriptSpagoSayHello";
           };
           scalaSbt = flake-utils.lib.mkApp {
-            drv = scalaSbtLib;
+            drv = libs.scalaSbtLib;
             name = "scalaSbtSayHello";
           };
           default = flake-utils.lib.mkApp {
@@ -137,7 +133,7 @@
           possible to make direnv load it automatically.  
         */
         devShell = pkgs.mkShell {
-          inputsFrom = [ hello ] ++ libs;
+          inputsFrom = [ hello ] ++ builtins.attrValues libs;
           nativeBuildInputs = with pkgs; [
             git
             nix-prefetch-git
@@ -147,13 +143,7 @@
           ];
         };
         packages = {
-          inherit
-            bashLib
-            javaSbtLib
-            javascriptNpmLib
-            purescriptSpagoLib
-            scalaSbtLib;
           default = hello;
-        };
+        } // libs;
       });
 }
