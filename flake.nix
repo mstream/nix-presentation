@@ -55,18 +55,18 @@
       bashLib = pkgs.callPackage ./bash_lib/default.nix
         { };
       buildConf = import ./build_conf/default.nix;
-      javaLib = pkgs.callPackage ./java_lib/default.nix
+      javaSbtLib = pkgs.callPackage ./java_sbt_lib
         { inherit mkSbtDerivation; };
       localRuntimeConf = pkgs.callPackage ./local_runtime_conf/default.nix
         { };
-      nodeLib = (import ./node_lib/default.nix
+      javascriptNpmLib = (import ./javascript_npm_lib
         { inherit pkgs system; }
       );
-      scalaLib = pkgs.callPackage ./scala_lib/default.nix
+      scalaSbtLib = pkgs.callPackage ./scala_sbt_lib
         { inherit mkSbtDerivation; };
-      spago-pkgs = import ./purescript_lib/spago-packages.nix
+      spago-pkgs = import ./purescript_spago_lib/spago-packages.nix
         { inherit pkgs; };
-      purescriptLib = pkgs.callPackage ./purescript_lib/default.nix
+      purescriptSpagoLib = pkgs.callPackage ./purescript_spago_lib
         {
           inherit spago-pkgs;
           inherit (easy-ps) purs spago;
@@ -78,14 +78,20 @@
           inherit
             bashLib
             buildConf
-            javaLib
+            javaSbtLib
+            javascriptNpmLib
             localRuntimeConf
-            nodeLib
             pkgs
-            purescriptLib
+            purescriptSpagoLib
             remoteRuntimeConf
-            scalaLib;
+            scalaSbtLib;
         };
+      libs = [
+        bashLib
+        javaSbtLib
+        purescriptSpagoLib
+        scalaSbtLib
+      ];
     in
       /* 
         We produce one default app output per system,
@@ -105,15 +111,23 @@
       apps = {
         bash = flake-utils.lib.mkApp {
           drv = bashLib;
-          name = "sayHello.sh";
+          name = "bashSayHello";
         };
-        node = flake-utils.lib.mkApp {
-          drv = nodeLib;
-          name = "cli.js";
+        javaSbt = flake-utils.lib.mkApp {
+          drv = javaSbtLib;
+          name = "javaSbtSayHello";
         };
-        purescript = flake-utils.lib.mkApp {
-          drv = purescriptLib;
-          name = "cli.mjs";
+        javascriptNpm = flake-utils.lib.mkApp {
+          drv = javascriptNpmLib;
+          name = "javascriptNpmSayHello";
+        };
+        purescriptSpago = flake-utils.lib.mkApp {
+          drv = purescriptSpagoLib;
+          name = "purescriptSpagoSayHello";
+        };
+        scalaSbt = flake-utils.lib.mkApp {
+          drv = scalaSbtLib;
+          name = "scalaSbtSayHello";
         };
         default = flake-utils.lib.mkApp {
           drv = hello;
@@ -128,7 +142,7 @@
         possible to make direnv load it automatically.  
       */
       devShell = pkgs.mkShell {
-        inputsFrom = [ bashLib hello nodeLib purescriptLib scalaLib ];
+        inputsFrom = [ hello ] ++ libs;
         nativeBuildInputs = with pkgs; [
           git
           nix-prefetch-git
@@ -138,7 +152,12 @@
         ];
       };
       packages = {
-        inherit bashLib nodeLib purescriptLib scalaLib;
+        inherit
+          bashLib
+          javaSbtLib
+          javascriptNpmLib
+          purescriptSpagoLib
+          scalaSbtLib;
         default = hello;
       };
     }

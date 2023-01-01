@@ -6,9 +6,10 @@
 | :--- | :--- | :--- | 
 | Bash | (none) | Bash | 
 | Java | SBT | JRE | 
-| Scala |  SBT | JRE | 
 | JavaScript | NPM | Node.js | 
+| PureScript | (none) | Node.js | 
 | PureScript | Spago | Node.js | 
+| Scala |  SBT | JRE | 
 
 ## Executing the demo application
 

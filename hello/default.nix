@@ -1,22 +1,22 @@
 { buildConf
 , bashLib
-, javaLib
+, javaSbtLib
+, javascriptNpmLib
 , lib
 , localRuntimeConf
 , makeWrapper
-, nodeLib
-, purescriptLib
+, purescriptSpagoLib
 , remoteRuntimeConf
-, scalaLib
+, scalaSbtLib
 , stdenv
 , ...
 }:
 let libs = [
   bashLib
-  javaLib
-  nodeLib
-  purescriptLib
-  scalaLib
+  javaSbtLib
+  javascriptNpmLib
+  purescriptSpagoLib
+  scalaSbtLib
 ];
 in
 stdenv.mkDerivation {

@@ -10,7 +10,7 @@ set -e
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "${SCRIPT_DIR}"
-for TARGET_DIR in node_lib purescript_lib
+for TARGET_DIR in node_lib purescript_spago_lib
 do
   "${TARGET_DIR}"/nixify.sh
 done
