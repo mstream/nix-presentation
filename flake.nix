@@ -39,7 +39,7 @@
     , ...
     }:
     flake-utils.lib.eachSystem
-      (import ./supportedSystems.nix)
+      (import ./supportedSystems.nix { inherit flake-utils; })
       (system:
       let
         pkgs = import
