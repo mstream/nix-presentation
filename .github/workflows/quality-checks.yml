@@ -2,14 +2,14 @@ name: Quality Checks
 
 on:
   pull_request:
-    branches: 
+    branches:
       - master
 
 jobs:
   linting:
     runs-on: ubuntu-22.04
     steps:
-      - name: Check out the repo 
+      - name: Check out the repo
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -19,14 +19,10 @@ jobs:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Check if all impure modules have been nixified
-        run: | 
+        run: |
           ./nixify.sh 
           [[ $(git diff head --stat) == '' ]] \
             || (echo 'git branch is dirty after nixifying' && exit 1)
       - name: Run linters
-        run: | 
+        run: |
           ./lint.sh
-
-
-
-
