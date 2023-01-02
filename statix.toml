@@ -1,0 +1,7 @@
+ignore = [
+  ".direnv",
+  "say_hello/javascript_npm/node-env.nix",
+  "say_hello/javascript_npm/node-packages.nix",
+  "say_hello/purescript_spago/spago-packages.nix"
+]
+

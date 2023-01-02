@@ -94,13 +94,15 @@
             git
             nix-prefetch-git
             nodejs
+            nodePackages.markdown-link-check
             nodePackages.node2nix
+            statix
             (import spago2nix { inherit pkgs; })
           ];
         };
         packages = {
+          inherit demo;
           default = demo;
-          demo = demo;
         } // (flake-utils.lib.flattenTree sayHello);
       });
 }

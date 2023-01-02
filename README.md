@@ -7,8 +7,8 @@
 | [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) | (none) | [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) | [open](say_hello/bash/default.nix) | 
 | [Java](https://en.wikipedia.org/wiki/Java_(programming_language)) | [SBT](https://en.wikipedia.org/wiki/Sbt_(software)) | [JRE](https://en.wikipedia.org/wiki/Java_(software_platform)#Java_Runtime_Environment) | [open](say_hello/java_sbt/default.nix) |
 | [JavaScript](https://en.wikipedia.org/wiki/JavaScript) | [NPM](https://en.wikipedia.org/wiki/Npm_(software)) | [Node.js](https://en.wikipedia.org/wiki/Node.js) | [open](say_hello/javascript_npm/default.nix) | 
-| [PureScript](https://en.wikipedia.org/wiki/PureScript) | [Spago](https://github.com/purescript/spago) | [Node.js](https://en.wikipedia.org/wiki/Node.js) | [open](purescript_spago/default.nix) |
-| [Scala](https://en.wikipedia.org/wiki/Scala_(programming_language)) | [SBT](https://en.wikipedia.org/wiki/Sbt_(software)) | [JRE](https://en.wikipedia.org/wiki/Java_(software_platform)#Java_Runtime_Environment) | [open](scala_sbt/default.nix) |
+| [PureScript](https://en.wikipedia.org/wiki/PureScript) | [Spago](https://github.com/purescript/spago) | [Node.js](https://en.wikipedia.org/wiki/Node.js) | [open](say_hello/purescript_spago/default.nix) |
+| [Scala](https://en.wikipedia.org/wiki/Scala_(programming_language)) | [SBT](https://en.wikipedia.org/wiki/Sbt_(software)) | [JRE](https://en.wikipedia.org/wiki/Java_(software_platform)#Java_Runtime_Environment) | [open](say_hello/scala_sbt/default.nix) |
 
 ## Executing the demo application
 
