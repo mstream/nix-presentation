@@ -96,6 +96,7 @@
             nodejs
             nodePackages.markdown-link-check
             nodePackages.node2nix
+            nodePackages.prettier
             shellcheck
             statix
             (import spago2nix { inherit pkgs; })
