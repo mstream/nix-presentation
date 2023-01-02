@@ -11,15 +11,21 @@ jobs:
     steps:
       - name: Check out the repo 
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Set up Nix
         uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Check if all impure modules have been nixified
-        run: ./nixify.sh && [[ $(git diff head --stat) == '' ]] || (echo 'git branch is dirty after nixifying' && exit 1)
+        run: | 
+          ./nixify.sh 
+          [[ $(git diff head --stat) == '' ]] \
+            || (echo 'git branch is dirty after nixifying' && exit 1)
       - name: Run linters
-        run: ./lint.sh
+        run: | 
+          ./lint.sh
 
 
 
