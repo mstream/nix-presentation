@@ -45,43 +45,16 @@
         pkgs = import
           nixpkgs
           { inherit system; };
-        easy-ps = import
-          easy-purescript-nix
+        conf = import
+          ./conf
           { inherit pkgs; };
-        mkSbtDerivation = sbt.mkSbtDerivation.${system};
-        confs = {
-          buildConf = import
-            ./build_conf;
-          localRuntimeConf = pkgs.callPackage
-            ./local_runtime_conf
-            { };
-          remoteRuntimeConf = pkgs.callPackage
-            ./remote_runtime_conf
-            { };
-        };
-        libs = {
-          bashLib = pkgs.callPackage
-            ./bash_lib
-            { };
-          javaSbtLib = pkgs.callPackage
-            ./java_sbt_lib
-            { inherit mkSbtDerivation; };
-          javascriptNpmLib = import
-            ./javascript_npm_lib
-            { inherit pkgs system; };
-          purescriptSpagoLib = pkgs.callPackage
-            ./purescript_spago_lib
-            {
-              inherit pkgs;
-              inherit (easy-ps) purs spago;
-            };
-          scalaSbtLib = pkgs.callPackage
-            ./scala_sbt_lib
-            { inherit mkSbtDerivation; };
-        };
-        hello = pkgs.callPackage
-          ./hello
-          ({ inherit pkgs; } // libs // confs);
+        sayHello = import
+          ./say_hello
+          { inherit easy-purescript-nix nixpkgs sbt system; };
+        demo = pkgs.callPackage
+          ./demo
+          { inherit conf pkgs sayHello; };
+        demoApp = flake-utils.lib.mkApp { drv = demo; };
       in
         /* 
           We produce one default app output per system,
@@ -98,10 +71,13 @@
           `nix flake show` from the directory that this flake resides.
         */
       {
-        apps = { default = flake-utils.lib.mkApp { drv = hello; }; }
-          // (builtins.mapAttrs
+        apps = {
+          default = demoApp;
+          demo = demoApp;
+        }
+        // (builtins.mapAttrs
           (name: value: flake-utils.lib.mkApp { drv = value; })
-          libs
+          (flake-utils.lib.flattenTree sayHello)
         );
         /*
           DevShell allows to spawn a Bash shell with a customized setup.
@@ -111,7 +87,9 @@
           possible to make direnv load it automatically.  
         */
         devShell = pkgs.mkShell {
-          inputsFrom = [ hello ] ++ builtins.attrValues libs;
+          inputsFrom = [
+            demo
+          ] ++ builtins.attrValues (flake-utils.lib.flattenTree sayHello);
           nativeBuildInputs = with pkgs; [
             git
             nix-prefetch-git
@@ -121,7 +99,8 @@
           ];
         };
         packages = {
-          default = hello;
-        } // libs;
+          default = demo;
+          demo = demo;
+        } // (flake-utils.lib.flattenTree sayHello);
       });
 }
