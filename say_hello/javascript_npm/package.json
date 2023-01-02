@@ -9,7 +9,7 @@
     "node-say-hello": "bin/cli.js"
   },
   "license": "ISC",
-  "name": "node-lib",
+  "name": "say-hello-javascript-npm",
   "repository": "https://github.com/mstream/nix-presentation",
   "scripts": {
     "test": "node test/index.js"

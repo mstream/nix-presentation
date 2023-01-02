@@ -8,9 +8,14 @@
 
 set -e
 
+IMPURE_MODULES=(
+  say_hello/javascript_npm
+  say_hello/purescript_spago
+)
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "${SCRIPT_DIR}"
-for TARGET_DIR in node_lib purescript_spago_lib
+for TARGET_DIR in "${IMPURE_MODULES[@]}"
 do
   "${TARGET_DIR}"/nixify.sh
 done

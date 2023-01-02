@@ -6,10 +6,11 @@
 }:
 let
   /*
-    Because pname and version are used for artifact lookup, 
-    they must equal to the name and version in build.sbt.
+    Because pname, scalaVersion and version are used for artifact lookup, 
+    they must equal to the name and version scalaVersion in build.sbt.
   */
-  pname = "java-sbt-say-hello";
+  pname = "say-hello-java-sbt";
+  scalaVersion = "2.13";
   version = "1.0.0";
   srcJarName = "${pname}-assembly-${version}.jar";
   targetJarName = "${pname}.jar";
@@ -24,7 +25,7 @@ mkSbtDerivation {
   installPhase = ''
     mkdir -p $out
     cp \
-      target/scala-2.13/${srcJarName} \
+      target/scala-${scalaVersion}/${srcJarName} \
       $out/${targetJarName}
   '';
   nativeBuildInputs = [ jdk makeWrapper ];

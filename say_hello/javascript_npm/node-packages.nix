@@ -780,8 +780,8 @@ let
     };
   };
   args = {
-    name = "node-lib";
-    packageName = "node-lib";
+    name = "say-hello-javascript-npm";
+    packageName = "say-hello-javascript-npm";
     version = "1.0.0";
     src = ./.;
     dependencies = [

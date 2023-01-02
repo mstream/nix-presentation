@@ -17,11 +17,18 @@ NAMES=(
   "${NAME_6}" 
 )
 
+SAY_HELLO_EXECUTABLES=(
+  say-hello-bash
+  say-hello-java-sbt
+  say-hello-javascript-npm
+  say-hello-purescript-spago
+  say-hello-scala-sbt
+)
+
 for NAME in "${NAMES[@]}"
 do
-  bash-say-hello "${NAME}"
-  java-sbt-say-hello "${NAME}"
-  javascript-npm-say-hello "${NAME}"
-  purescript-spago-say-hello "${NAME}"
-  scala-sbt-say-hello "${NAME}"
+  for SAY_HELLO_EXECUTABLE in "${SAY_HELLO_EXECUTABLES[@]}"
+  do
+    "${SAY_HELLO_EXECUTABLE}" "${NAME}"
+  done
 done

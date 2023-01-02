@@ -1,5 +1,5 @@
 scalaVersion := "2.13.10"
-name := "java-sbt-say-hello"
+name := "say-hello-java-sbt"
 organization := "io.github.mstream"
 version := "1.0.0"
 libraryDependencies ++= Seq(

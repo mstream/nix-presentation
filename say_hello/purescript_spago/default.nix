@@ -8,7 +8,8 @@
 , ...
 }:
 let
-  name = "purescript-spago-say-hello";
+  name = "say-hello-purescript-spago";
+  platform = "node";
   spago-pkgs = import
     ./spago-packages.nix
     { inherit pkgs; };
@@ -25,8 +26,16 @@ stdenv.mkDerivation {
   */
   buildPhase = ''
     build-spago-style "./**/*.purs"
-    esbuild output/Main/index.js --bundle --outfile=app.js --platform=node
-    esbuild output/Test.Main/index.js --bundle --outfile=test.js --platform=node
+    esbuild \
+      output/Main/index.js \
+      --bundle \
+      --outfile=app.js \
+      --platform=${platform}
+    esbuild \
+      output/Test.Main/index.js \
+      --bundle \
+      --outfile=test.js \
+      --platform=${platform}
   '';
   /* 
     Run unit tests.

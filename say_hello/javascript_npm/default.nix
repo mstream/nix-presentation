@@ -4,11 +4,16 @@
 }:
 
 let
+  /*
+    Because name is used to for files lookup, it has to match
+    the name in package-lock.json.
+  */
+  name = "say-hello-javascript-npm";
   compositionPackage = (import
     ./composition.nix
     { inherit pkgs system; }
   ).package;
-  name = "javascript-npm-say-hello";
+  libDir = "${compositionPackage}/lib/node_modules/${name}";
 in
 pkgs.stdenv.mkDerivation {
   inherit name;
@@ -54,8 +59,8 @@ pkgs.stdenv.mkDerivation {
   '';
   src = ./.;
   unpackPhase = ''
-    cp -r ${compositionPackage}/lib/node_modules/node-lib/node_modules .
-    cp -r ${compositionPackage}/lib/node_modules/node-lib/src .
-    cp -r ${compositionPackage}/lib/node_modules/node-lib/test .
+    cp -r ${libDir}/node_modules .
+    cp -r ${libDir}/src .
+    cp -r ${libDir}/test .
   '';
 }

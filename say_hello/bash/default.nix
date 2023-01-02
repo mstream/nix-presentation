@@ -2,7 +2,7 @@
 , ...
 }:
 let
-  name = "bash-say-hello";
+  name = "say-hello-bash";
 in
 stdenv.mkDerivation {
   inherit name;
