@@ -91,6 +91,8 @@
           (name: value: flake-utils.lib.mkApp { drv = value; })
           (flake-utils.lib.flattenTree sayHello)
         );
+        defaultApp = demoApp;
+        defaultPackage = demo;
         /*
           DevShell allows to spawn a Bash shell with a customized setup.
           Here, we set it up with all inputs required by the 'hello' 
