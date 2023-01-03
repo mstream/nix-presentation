@@ -13,11 +13,22 @@
       Nix flakes.
     */
     flake-utils.url = "github:numtide/flake-utils";
+    mach-nix = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pypi-deps-db.follows = "pypi-deps-db";
+      };
+      url = "github:DavHau/mach-nix";
+    };
     /*
       Nixpkgs is a community-maintained collection of helper functions 
       and expression for derivations building packages of popular software.
     */
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:nixos/nixpkgs/970cd2643dea85034ad8e658e16fa946439f345b";
+    pypi-deps-db = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:DavHau/pypi-deps-db";
+    };
     sbt = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:zaninime/sbt-derivation";
@@ -33,6 +44,7 @@
   outputs =
     { easy-purescript-nix
     , flake-utils
+    , mach-nix
     , nixpkgs
     , sbt
     , spago2nix
@@ -50,7 +62,7 @@
           { inherit pkgs; };
         sayHello = import
           ./say_hello
-          { inherit easy-purescript-nix nixpkgs sbt system; };
+          { inherit easy-purescript-nix mach-nix nixpkgs sbt system; };
         demo = pkgs.callPackage
           ./demo
           { inherit conf pkgs sayHello; };
