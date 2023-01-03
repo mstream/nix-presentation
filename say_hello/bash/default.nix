@@ -1,4 +1,5 @@
-{ stdenv
+{ bash
+, stdenv
 , ...
 }:
 let
@@ -10,7 +11,7 @@ stdenv.mkDerivation {
     Run unit tests.
   */
   checkPhase = ''
-    ./test/sayHello.sh
+    bash test/sayHello.sh
   '';
   /* 
     Make the check phase execute.
@@ -33,6 +34,7 @@ stdenv.mkDerivation {
     the derivation and influence its hash. This directory can be referred
     in phase hooks via 'src' environmental variable.
   */
+  nativeBuildInputs = [ bash ];
   src = ./.;
   unpackPhase = ''
     cp -r $src/src .
