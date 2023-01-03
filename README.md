@@ -2,13 +2,14 @@
 
 ## Exhibited programming language integration
 
-| Language                                                              | Build Tool                                            | Runtime                                                                                  | Source Code                                    |
-| :-------------------------------------------------------------------- | :---------------------------------------------------- | :--------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| [Bash](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>)             | (none)                                                | [Bash](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>)                                | [open](say_hello/bash/default.nix)             |
-| [Java](<https://en.wikipedia.org/wiki/Java_(programming_language)>)   | [SBT](<https://en.wikipedia.org/wiki/Sbt_(software)>) | [JRE](<https://en.wikipedia.org/wiki/Java_(software_platform)#Java_Runtime_Environment>) | [open](say_hello/java_sbt/default.nix)         |
-| [JavaScript](https://en.wikipedia.org/wiki/JavaScript)                | [NPM](<https://en.wikipedia.org/wiki/Npm_(software)>) | [Node.js](https://en.wikipedia.org/wiki/Node.js)                                         | [open](say_hello/javascript_npm/default.nix)   |
-| [PureScript](https://en.wikipedia.org/wiki/PureScript)                | [Spago](https://github.com/purescript/spago)          | [Node.js](https://en.wikipedia.org/wiki/Node.js)                                         | [open](say_hello/purescript_spago/default.nix) |
-| [Scala](<https://en.wikipedia.org/wiki/Scala_(programming_language)>) | [SBT](<https://en.wikipedia.org/wiki/Sbt_(software)>) | [JRE](<https://en.wikipedia.org/wiki/Java_(software_platform)#Java_Runtime_Environment>) | [open](say_hello/scala_sbt/default.nix)        |
+| Language                                                                | Build Tool                                            | Runtime                                                                                  | Source Code                                    |
+| :---------------------------------------------------------------------- | :---------------------------------------------------- | :--------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| [Bash](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>)               | (none)                                                | [Bash](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>)                                | [open](say_hello/bash/default.nix)             |
+| [Java](<https://en.wikipedia.org/wiki/Java_(programming_language)>)     | [SBT](<https://en.wikipedia.org/wiki/Sbt_(software)>) | [JRE](<https://en.wikipedia.org/wiki/Java_(software_platform)#Java_Runtime_Environment>) | [open](say_hello/java_sbt/default.nix)         |
+| [JavaScript](https://en.wikipedia.org/wiki/JavaScript)                  | [NPM](<https://en.wikipedia.org/wiki/Npm_(software)>) | [Node.js](https://en.wikipedia.org/wiki/Node.js)                                         | [open](say_hello/javascript_npm/default.nix)   |
+| [PureScript](https://en.wikipedia.org/wiki/PureScript)                  | [Spago](https://github.com/purescript/spago)          | [Node.js](https://en.wikipedia.org/wiki/Node.js)                                         | [open](say_hello/purescript_spago/default.nix) |
+| [Python](<https://en.wikipedia.org/wiki/Python_(programming_language)>) | (none)                                                | [CPython](https://en.wikipedia.org/wiki/CPython)                                         | [open](say_hello/python/default.nix)           |
+| [Scala](<https://en.wikipedia.org/wiki/Scala_(programming_language)>)   | [SBT](<https://en.wikipedia.org/wiki/Sbt_(software)>) | [JRE](<https://en.wikipedia.org/wiki/Java_(software_platform)#Java_Runtime_Environment>) | [open](say_hello/scala_sbt/default.nix)        |
 
 ## Executing the demo application
 
@@ -34,6 +35,20 @@ or
 
 ```bash
 $(nix build --no-link --print-out-paths)/bin/hello.sh
+```
+
+## Displaying flake outputs
+
+### Remotely
+
+```bash
+nix show github:mstream/nix-presentation
+```
+
+### Locally
+
+```bash
+nix show
 ```
 
 ## Browsing dependencies graph

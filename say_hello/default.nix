@@ -1,4 +1,5 @@
 { easy-purescript-nix
+, mach-nix
 , nixpkgs
 , sbt
 , system
@@ -8,6 +9,7 @@ let
   easy-ps = import
     easy-purescript-nix
     { inherit pkgs; };
+  inherit (mach-nix.lib.${system}) buildPythonApplication;
   mkSbtDerivation = sbt.mkSbtDerivation.${system};
   pkgs = import
     nixpkgs
@@ -29,6 +31,9 @@ in
       inherit pkgs;
       inherit (easy-ps) purs spago;
     };
+  python = pkgs.callPackage
+    ./python
+    { inherit buildPythonApplication; };
   scalaSbt = pkgs.callPackage
     ./scala_sbt
     { inherit mkSbtDerivation; };

@@ -50,6 +50,7 @@ pkgs.stdenv.mkDerivation {
   nativeBuildInputs = with pkgs; [
     esbuild
     makeWrapper
+    nodejs
   ];
   postFixup = ''
     makeWrapper \

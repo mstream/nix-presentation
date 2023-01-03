@@ -17,18 +17,19 @@ NAMES=(
   "${NAME_6}" 
 )
 
-SAY_HELLO_EXECUTABLES=(
-  say-hello-bash
-  say-hello-java-sbt
-  say-hello-javascript-npm
-  say-hello-purescript-spago
-  say-hello-scala-sbt
+SAY_HELLO_LIBS=(
+  bash
+  java-sbt
+  javascript-npm
+  purescript-spago
+  python
+  scala-sbt
 )
 
 for NAME in "${NAMES[@]}"
 do
-  for SAY_HELLO_EXECUTABLE in "${SAY_HELLO_EXECUTABLES[@]}"
+  for SAY_HELLO_LIB in "${SAY_HELLO_LIBS[@]}"
   do
-    "${SAY_HELLO_EXECUTABLE}" "${NAME}"
+    "say-hello-${SAY_HELLO_LIB}" "${NAME}"
   done
 done
