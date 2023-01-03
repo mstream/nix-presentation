@@ -42,13 +42,13 @@ $(nix build --no-link --print-out-paths)/bin/hello.sh
 ### Remotely
 
 ```bash
-nix show github:mstream/nix-presentation
+nix flake show github:mstream/nix-presentation
 ```
 
 ### Locally
 
 ```bash
-nix show
+nix flake show
 ```
 
 ## Browsing dependencies graph
