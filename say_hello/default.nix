@@ -9,7 +9,7 @@ let
   easy-ps = import
     easy-purescript-nix
     { inherit pkgs; };
-  buildPythonApplication = mach-nix.lib.${system}.buildPythonApplication;
+  inherit (mach-nix.lib.${system}) buildPythonApplication;
   mkSbtDerivation = sbt.mkSbtDerivation.${system};
   pkgs = import
     nixpkgs

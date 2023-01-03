@@ -87,16 +87,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1672487114,
-        "narHash": "sha256-YIcQtXNQSofFSRDO8Y/uCtXAMguc8HqpY83TstgkH+k=",
+        "lastModified": 1662635943,
+        "narHash": "sha256-1OBBlBzZ894or8eHZjyADOMnGH89pPUKYGVVS5rwW/0=",
         "owner": "DavHau",
         "repo": "mach-nix",
-        "rev": "68a85753555ed67ff53f0d0320e5ac3c725c7400",
+        "rev": "65266b5cc867fec2cb6a25409dd7cd12251f6107",
         "type": "github"
       },
       "original": {
         "owner": "DavHau",
         "repo": "mach-nix",
+        "rev": "65266b5cc867fec2cb6a25409dd7cd12251f6107",
         "type": "github"
       }
     },
@@ -121,17 +122,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1655638321,
-        "narHash": "sha256-CYD82LHteezZscsdegtKnFtAegiOyW5IFvwJU/A+IhQ=",
+        "lastModified": 1669061335,
+        "narHash": "sha256-hq6EILj/H/z+kpGyU9X3cy1F6vaRKmNFnRY1y36U6Ow=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "970cd2643dea85034ad8e658e16fa946439f345b",
+        "rev": "bb029673bface2fc9fb807f209f63ca06478a72d",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
+        "ref": "22.11-beta",
         "repo": "nixpkgs",
-        "rev": "970cd2643dea85034ad8e658e16fa946439f345b",
         "type": "github"
       }
     },

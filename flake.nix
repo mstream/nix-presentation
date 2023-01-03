@@ -18,13 +18,13 @@
         nixpkgs.follows = "nixpkgs";
         pypi-deps-db.follows = "pypi-deps-db";
       };
-      url = "github:DavHau/mach-nix";
+      url = "github:DavHau/mach-nix/65266b5cc867fec2cb6a25409dd7cd12251f6107";
     };
     /*
       Nixpkgs is a community-maintained collection of helper functions 
       and expression for derivations building packages of popular software.
     */
-    nixpkgs.url = "github:nixos/nixpkgs/970cd2643dea85034ad8e658e16fa946439f345b";
+    nixpkgs.url = "github:nixos/nixpkgs/22.11-beta";
     pypi-deps-db = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:DavHau/pypi-deps-db";

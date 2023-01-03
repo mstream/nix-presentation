@@ -3,16 +3,19 @@
 , ...
 }:
 let
+  pythonMajorVer = "3";
+  pythonMinorVer = "9";
+  pythonPackage = pkgs."python${pythonMajorVer}${pythonMinorVer}";
   compositionPackage = buildPythonApplication {
+    python = "python${pythonMajorVer}${pythonMinorVer}";
     src = ./.;
   };
-  pythonVersion = "3.10";
-  libDir = "${compositionPackage}/lib/python${pythonVersion}/site-packages";
+  libDir = "${compositionPackage}/lib/python${pythonMajorVer}.${pythonMinorVer}/site-packages";
   name = "say-hello-python";
 in
 pkgs.stdenv.mkDerivation {
   inherit name;
-  buildInputs = with pkgs; [ python3Minimal ];
+  buildInputs = [ pythonPackage ];
   checkPhase = ''
     pytest 
   '';
@@ -27,19 +30,17 @@ pkgs.stdenv.mkDerivation {
   '';
   nativeBuildInputs = with pkgs; [
     makeWrapper
-    python310Full
-    python310Packages.pytest
+    pythonPackage
+    pkgs."python${pythonMajorVer}${pythonMinorVer}Packages".pytest
   ];
   postFixup = ''
     makeWrapper \
-      ${pkgs.python39}/bin/python \
+      ${pythonPackage}/bin/python \
       $out/bin/${name} \
       --add-flags "$out/app.py"
   '';
   src = ./.;
   unpackPhase = ''
-    echo "***"
-    ls -al ${compositionPackage}/lib
     cp -r ${libDir}/*.py .
   '';
 }
