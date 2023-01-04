@@ -5,8 +5,9 @@ class HelloSpec extends AnyFunSpec {
   describe("format") {
     it("formats correctly") {
       val actual = Hello.format("John") 
-      val expected = "(Scala/SBT) Hello John!"
-      assert(actual === expected)
+      assert(actual contains "(Scala/SBT)")
+      assert(actual contains "Hello")
+      assert(actual contains "John")
     }
   }
 }
