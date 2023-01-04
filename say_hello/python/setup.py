@@ -1,6 +1,8 @@
-#!/usr/bin/env python
-
 from setuptools import setup
 
-if __name__ == "__main__":
-  setup()
+setup(
+    name='say-hello-python',
+    version='1.0.0',
+    install_requires=['termcolor']
+)
+
