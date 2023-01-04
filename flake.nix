@@ -116,6 +116,7 @@
             (import spago2nix { inherit pkgs; })
           ];
         };
+        formatter = pkgs.nixpkgs-fmt;
         packages = {
           inherit demo;
           default = demo;
