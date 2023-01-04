@@ -1,4 +1,7 @@
 object Hello {
   def format(personName: String) = 
-    s"(Scala/SBT) Hello ${personName}!"
+    (fansi.Color.White("(Scala/SBT) ") ++
+    fansi.Color.Blue("Hello ") ++
+    fansi.Color.Red(personName) ++
+    fansi.Color.Blue("!")).render
 }
