@@ -1,7 +1,7 @@
 const chalk = require('chalk')
 
 function format(personName) {
-  return chalk.blackBright('(JavaScript/NPM) ') +
+  return chalk.white('(JavaScript/NPM) ') +
     chalk.blue('Hello ') +
     chalk.red(personName) +
     chalk.blue('!')
