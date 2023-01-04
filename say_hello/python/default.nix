@@ -3,6 +3,7 @@
 , ...
 }:
 let
+  name = "say-hello-python";
   pythonMajorVer = "3";
   pythonMinorVer = "9";
   pythonPackage = pkgs."python${pythonMajorVer}${pythonMinorVer}";
@@ -10,16 +11,15 @@ let
     python = "python${pythonMajorVer}${pythonMinorVer}";
     src = ./.;
   };
-  name = "say-hello-python";
+  pythonAppPackagesDir = "${pythonApp}/lib/python${pythonMajorVer}.${pythonMinorVer}/site-packages";
 in
 pkgs.stdenv.mkDerivation {
   inherit name;
-  unpackPhase = "true";
   buildInputs = [ pythonApp ];
   checkPhase = ''
-    pytest 
+    pytest ${pythonAppPackagesDir}
   '';
-  doCheck = false;
+  doCheck = true;
   installPhase = ''
     mkdir -p $out/bin
   '';
@@ -31,7 +31,7 @@ pkgs.stdenv.mkDerivation {
     makeWrapper \
       ${pythonPackage}/bin/python \
       $out/bin/${name} \
-      --add-flags "${pythonApp}/lib/python${pythonMajorVer}.${pythonMinorVer}/site-packages/app.py"
+      --add-flags "${pythonAppPackagesDir}/app.py"
   '';
   src = ./.;
 }
