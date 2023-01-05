@@ -9,6 +9,11 @@ set -e
 REPO_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "${REPO_DIR}"
 
-[[ $(git diff head --stat) == '' ]] \
-  || (echo 'Git working tree is dirty.' && exit 1)
-
+if [[ $(git diff HEAD --stat) != '' ]]
+then
+  echo 'Git working tree is dirty:'
+  git diff HEAD
+  exit 1
+else
+  echo 'Git working tree is clean.'
+fi
