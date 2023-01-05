@@ -18,11 +18,11 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Check if all impure modules have been nixified
+      - name: Check if nixifying and formatting effects have been committed
         run: |
           ./nixify.sh 
-          [[ $(git diff head --stat) == '' ]] \
-            || (echo 'git branch is dirty after nixifying' && exit 1)
+          ./format.sh
+          ./is-working-tree-clean.sh
       - name: Run linters
         run: |
           ./lint.sh
