@@ -9,7 +9,7 @@ set -e
 REPO_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "${REPO_DIR}"
 
-prettier ./README.md
-prettier .github/workflows/*.yml
+prettier --write ./README.md
+prettier --write .github/workflows/*.yml
 nix fmt
 
