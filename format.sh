@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell ./shell.nix -i bash
+#! nix-shell --pure ./shell.nix -i bash
 # shellcheck shell=bash
 
 # A script which formats nix files

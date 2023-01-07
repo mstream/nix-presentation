@@ -98,6 +98,7 @@
           ] ++ builtins.attrValues (flake-utils.lib.flattenTree sayHello);
           nativeBuildInputs = with pkgs; [
             git
+            nix
             nix-prefetch-git
             nodejs
             nodePackages.markdown-link-check
