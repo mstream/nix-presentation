@@ -8,7 +8,7 @@ function shouldContain() {
   local SUBSTRING="$2"
   if [[ "${STRING}" != *"${SUBSTRING}"* ]]
   then
-    echo "'${STRING}' does not contain '${SUBSTRING}'"
+    echo "\"${STRING}\" does not contain \"${SUBSTRING}\""
     exit 1 
   fi
 }

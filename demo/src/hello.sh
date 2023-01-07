@@ -22,7 +22,6 @@ SAY_HELLO_LIBS=(
   java-sbt
   javascript-npm
   purescript-spago
-  python
   scala-sbt
 )
 

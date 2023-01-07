@@ -13,22 +13,11 @@
       Nix flakes.
     */
     flake-utils.url = "github:numtide/flake-utils";
-    mach-nix = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pypi-deps-db.follows = "pypi-deps-db";
-      };
-      url = "github:DavHau/mach-nix/65266b5cc867fec2cb6a25409dd7cd12251f6107";
-    };
     /*
       Nixpkgs is a community-maintained collection of helper functions 
       and expression for derivations building packages of popular software.
     */
-    nixpkgs.url = "github:nixos/nixpkgs/22.11-beta";
-    pypi-deps-db = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:DavHau/pypi-deps-db";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/22.11";
     sbt = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:zaninime/sbt-derivation";
@@ -65,7 +54,10 @@
           { inherit easy-purescript-nix mach-nix nixpkgs sbt system; };
         demo = pkgs.callPackage
           ./demo
-          { inherit conf pkgs sayHello; };
+          {
+            inherit conf;
+            sayHelloPackages = builtins.attrValues sayHello;
+          };
         demoApp = flake-utils.lib.mkApp { drv = demo; };
       in
         /* 
@@ -114,7 +106,7 @@
             shellcheck
             statix
             (import spago2nix { inherit pkgs; })
-          ];
+          ] ++ builtins.attrValues sayHello;
         };
         formatter = pkgs.nixpkgs-fmt;
         packages = {
