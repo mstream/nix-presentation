@@ -1,4 +1,5 @@
-{ git
+{ bash
+, git
 , localDrvs
 , mkShell
 , nix
@@ -12,8 +13,9 @@
 }:
 mkShell {
   inputsFrom = localDrvs;
-  nativeBuildInputs =
+  buildInputs =
     [
+      bash
       git
       nix
       nix-prefetch-git
