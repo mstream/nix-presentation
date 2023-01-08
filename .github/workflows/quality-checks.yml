@@ -22,9 +22,11 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
       - name: Check if nixifying and formatting effects have been committed
         run: |
+          nix shell
           ./nixify.sh 
           ./format.sh
           ./is-working-tree-clean.sh
       - name: Run linters
         run: |
+          nix shell
           ./lint.sh

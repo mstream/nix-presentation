@@ -1,7 +1,3 @@
-#! /usr/bin/env nix-shell
-#! nix-shell --pure ./shell.nix -i bash
-# shellcheck shell=bash
-
 # A script which turns non-nix libraries into nix derivations.
 # These libraries use other build system for which a nix converter
 # exist. Thus, for every modification of these build system 

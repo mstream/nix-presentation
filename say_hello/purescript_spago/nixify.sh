@@ -1,6 +1,3 @@
-#! /usr/bin/env nix-shell
-#! nix-shell --pure ../../shell.nix -i bash
-
 set -e
 
 LIB_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
