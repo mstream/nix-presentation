@@ -46,17 +46,19 @@
         pkgs = import
           nixpkgs
           { inherit system; };
-        conf = import
+        conf = pkgs.callPackage
           ./conf
-          { inherit pkgs; };
+          { };
         sayHello = import
           ./say_hello
           { inherit easy-purescript-nix mach-nix nixpkgs sbt system; };
+        confDrvs = flake-utils.lib.flattenTree { inherit conf; recurseForDerivations = true; };
+        sayHelloDrvs = flake-utils.lib.flattenTree { inherit sayHello; recurseForDerivations = true; };
         demo = pkgs.callPackage
           ./demo
           {
             inherit conf;
-            sayHelloPackages = builtins.attrValues sayHello;
+            sayHelloDrvs = builtins.attrValues sayHelloDrvs;
           };
         demoApp = flake-utils.lib.mkApp { drv = demo; };
       in
@@ -81,7 +83,7 @@
         }
         // (builtins.mapAttrs
           (name: value: flake-utils.lib.mkApp { drv = value; })
-          (flake-utils.lib.flattenTree sayHello)
+          sayHelloDrvs
         );
         defaultApp = demoApp;
         defaultPackage = demo;
@@ -94,25 +96,25 @@
         */
         devShell = pkgs.mkShell {
           inputsFrom = [
-            demo
-          ] ++ builtins.attrValues (flake-utils.lib.flattenTree sayHello);
-          nativeBuildInputs = with pkgs; [
-            git
-            nix
-            nix-prefetch-git
-            nodejs
-            nodePackages.markdown-link-check
-            nodePackages.node2nix
-            nodePackages.prettier
-            shellcheck
-            statix
-            (import spago2nix { inherit pkgs; })
-          ] ++ builtins.attrValues sayHello;
+          ] ++ builtins.attrValues confDrvs ++ builtins.attrValues sayHelloDrvs;
+          nativeBuildInputs = with pkgs;
+            [
+              git
+              nix
+              nix-prefetch-git
+              nodejs
+              nodePackages.markdown-link-check
+              nodePackages.node2nix
+              nodePackages.prettier
+              shellcheck
+              statix
+              (import spago2nix { inherit pkgs; })
+            ];
         };
         formatter = pkgs.nixpkgs-fmt;
         packages = {
           inherit demo;
           default = demo;
-        } // (flake-utils.lib.flattenTree sayHello);
+        } // confDrvs // sayHelloDrvs;
       });
 }

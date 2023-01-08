@@ -30,6 +30,7 @@ in
       inherit pkgs;
       inherit (easy-ps) purs spago;
     };
+  recurseForDerivations = true;
   scalaSbt = pkgs.callPackage
     ./scala_sbt
     { inherit mkSbtDerivation; };
