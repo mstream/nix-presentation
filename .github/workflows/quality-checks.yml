@@ -18,6 +18,7 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/
           nix_path: nixpkgs=channel:nixos-unstable
       - name: Check if nixifying and formatting effects have been committed
         run: |
