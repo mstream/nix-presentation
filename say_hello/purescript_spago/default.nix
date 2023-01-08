@@ -41,7 +41,7 @@ stdenv.mkDerivation {
     Run unit tests.
   */
   checkPhase = ''
-    ./bin/test.mjs
+    node bin/test.mjs
   '';
   /* 
     Make the check phase execute.
