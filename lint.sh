@@ -9,8 +9,8 @@ set -e
 REPO_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "${REPO_DIR}"
 
-markdown-link-check ./README.md
-prettier --check ./README.md
+markdown-link-check README.md
+prettier --check README.md
 prettier --check .github/workflows/*.yml
 shellcheck ./*.sh
 statix check

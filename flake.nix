@@ -94,22 +94,9 @@
           The shell is run with `nix develop` command. It is also 
           possible to make direnv load it automatically.  
         */
-        devShell = pkgs.mkShell {
-          inputsFrom = [
-          ] ++ builtins.attrValues confDrvs ++ builtins.attrValues sayHelloDrvs;
-          nativeBuildInputs = with pkgs;
-            [
-              git
-              nix
-              nix-prefetch-git
-              nodejs
-              nodePackages.markdown-link-check
-              nodePackages.node2nix
-              nodePackages.prettier
-              shellcheck
-              statix
-              (import spago2nix { inherit pkgs; })
-            ];
+        devShell = pkgs.callPackage ./devShell {
+          localDrvs = builtins.attrValues confDrvs ++ builtins.attrValues sayHelloDrvs;
+          spago2nix = import spago2nix { inherit pkgs; };
         };
         formatter = pkgs.nixpkgs-fmt;
         packages = {
