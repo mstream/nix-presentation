@@ -13,22 +13,11 @@
       Nix flakes.
     */
     flake-utils.url = "github:numtide/flake-utils";
-    mach-nix = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pypi-deps-db.follows = "pypi-deps-db";
-      };
-      url = "github:DavHau/mach-nix/65266b5cc867fec2cb6a25409dd7cd12251f6107";
-    };
     /*
       Nixpkgs is a community-maintained collection of helper functions 
       and expression for derivations building packages of popular software.
     */
-    nixpkgs.url = "github:nixos/nixpkgs/22.11-beta";
-    pypi-deps-db = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:DavHau/pypi-deps-db";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/22.11";
     sbt = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:zaninime/sbt-derivation";
@@ -57,15 +46,20 @@
         pkgs = import
           nixpkgs
           { inherit system; };
-        conf = import
+        conf = pkgs.callPackage
           ./conf
-          { inherit pkgs; };
+          { };
         sayHello = import
           ./say_hello
           { inherit easy-purescript-nix mach-nix nixpkgs sbt system; };
+        confDrvs = flake-utils.lib.flattenTree { inherit conf; recurseForDerivations = true; };
+        sayHelloDrvs = flake-utils.lib.flattenTree { inherit sayHello; recurseForDerivations = true; };
         demo = pkgs.callPackage
           ./demo
-          { inherit conf pkgs sayHello; };
+          {
+            inherit conf;
+            sayHelloDrvs = builtins.attrValues sayHelloDrvs;
+          };
         demoApp = flake-utils.lib.mkApp { drv = demo; };
       in
         /* 
@@ -89,7 +83,7 @@
         }
         // (builtins.mapAttrs
           (name: value: flake-utils.lib.mkApp { drv = value; })
-          (flake-utils.lib.flattenTree sayHello)
+          sayHelloDrvs
         );
         defaultApp = demoApp;
         defaultPackage = demo;
@@ -100,26 +94,14 @@
           The shell is run with `nix develop` command. It is also 
           possible to make direnv load it automatically.  
         */
-        devShell = pkgs.mkShell {
-          inputsFrom = [
-            demo
-          ] ++ builtins.attrValues (flake-utils.lib.flattenTree sayHello);
-          nativeBuildInputs = with pkgs; [
-            git
-            nix-prefetch-git
-            nodejs
-            nodePackages.markdown-link-check
-            nodePackages.node2nix
-            nodePackages.prettier
-            shellcheck
-            statix
-            (import spago2nix { inherit pkgs; })
-          ];
+        devShell = pkgs.callPackage ./devShell {
+          localDrvs = builtins.attrValues confDrvs ++ builtins.attrValues sayHelloDrvs;
+          spago2nix = import spago2nix { inherit pkgs; };
         };
         formatter = pkgs.nixpkgs-fmt;
         packages = {
           inherit demo;
           default = demo;
-        } // (flake-utils.lib.flattenTree sayHello);
+        } // confDrvs // sayHelloDrvs;
       });
 }

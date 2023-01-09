@@ -1,5 +1,8 @@
+set -e
+
 CONF_PATHS=(
-  "${LOCAL_LOAD_CONF_PATH}"
+  "${LOCAL_BASH_LOAD_CONF_PATH}"
+  "${LOCAL_DHALL_LOAD_CONF_PATH}"
   "${REMOTE_LOAD_CONF_PATH}"
 )
 
@@ -15,6 +18,7 @@ NAMES=(
   "${NAME_4}" 
   "${NAME_5}" 
   "${NAME_6}" 
+  "${NAME_7}" 
 )
 
 SAY_HELLO_LIBS=(
@@ -22,7 +26,6 @@ SAY_HELLO_LIBS=(
   java-sbt
   javascript-npm
   purescript-spago
-  python
   scala-sbt
 )
 

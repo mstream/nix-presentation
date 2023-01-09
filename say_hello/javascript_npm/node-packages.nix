@@ -184,6 +184,15 @@ let
         sha512 = "dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==";
       };
     };
+    "colors-1.4.0" = {
+      name = "colors";
+      packageName = "colors";
+      version = "1.4.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/colors/-/colors-1.4.0.tgz";
+        sha512 = "a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==";
+      };
+    };
     "concat-map-0.0.1" = {
       name = "concat-map";
       packageName = "concat-map";
@@ -787,7 +796,6 @@ let
     dependencies = [
       sources."ansi-colors-4.1.1"
       sources."ansi-regex-5.0.1"
-      sources."ansi-styles-4.3.0"
       sources."anymatch-3.1.3"
       sources."argparse-2.0.1"
       sources."assertion-error-1.1.0"
@@ -800,6 +808,7 @@ let
       sources."chai-4.3.7"
       (sources."chalk-4.1.2" // {
         dependencies = [
+          sources."ansi-styles-4.3.0"
           sources."supports-color-7.2.0"
         ];
       })
@@ -808,6 +817,7 @@ let
       sources."cliui-7.0.4"
       sources."color-convert-2.0.1"
       sources."color-name-1.1.4"
+      sources."colors-1.4.0"
       sources."concat-map-0.0.1"
       sources."debug-4.3.4"
       sources."decamelize-4.0.0"
@@ -873,7 +883,11 @@ let
       sources."to-regex-range-5.0.1"
       sources."type-detect-4.0.8"
       sources."workerpool-6.2.1"
-      sources."wrap-ansi-7.0.0"
+      (sources."wrap-ansi-7.0.0" // {
+        dependencies = [
+          sources."ansi-styles-4.3.0"
+        ];
+      })
       sources."wrappy-1.0.2"
       sources."y18n-5.0.8"
       sources."yargs-16.2.0"

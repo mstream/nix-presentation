@@ -21,7 +21,7 @@ mkSbtDerivation {
   buildPhase = ''
     sbt assembly
   '';
-  depsSha256 = "sha256-lzz0JF8JBiuAxKbuOzZ+vlUhQp/adjR/35E+yoWn6PQ=";
+  depsSha256 = "sha256-2/UxlqDCvck9tbd6kP4JvMblCiTVkR164vZql12pAwM=";
   installPhase = ''
     mkdir -p $out
     cp \

@@ -1,15 +1,12 @@
-#! /usr/bin/env nix-shell
-#! nix-shell ./shell.nix -i bash
-# shellcheck shell=bash
+#!/usr/bin/env sh
 
 # A script which formats nix files
 
 set -e
+script_dir=$(CDPATH="" cd -- "$(dirname -- "$0")" && pwd)
+cd "${script_dir}"
 
-REPO_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-cd "${REPO_DIR}"
-
-prettier --write ./README.md
+prettier --write README.md
 prettier --write .github/workflows/*.yml
 nix fmt
 

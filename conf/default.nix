@@ -1,13 +1,14 @@
-{ pkgs
+{ callPackage
 , ...
 }:
 {
   build = import
     ./build;
-  runtimeLocal = pkgs.callPackage
+  recurseForDerivations = true;
+  runtimeLocal = callPackage
     ./runtime_local
     { };
-  runtimeRemote = pkgs.callPackage
+  runtimeRemote = callPackage
     ./runtime_remote
     { };
 }

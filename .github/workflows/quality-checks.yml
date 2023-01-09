@@ -18,11 +18,13 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/
+          nix_path: nixpkgs=channel:nixos-unstable
       - name: Check if nixifying and formatting effects have been committed
         run: |
-          ./nixify.sh 
-          ./format.sh
-          ./is-working-tree-clean.sh
+          nix develop -c ./nixify.sh 
+          nix develop -c ./format.sh
+          nix develop -c ./is-working-tree-clean.sh
       - name: Run linters
         run: |
-          ./lint.sh
+          nix develop -c ./lint.sh
