@@ -1,18 +1,20 @@
-#! /usr/bin/env nix-shell
-#! nix-shell ./shell.nix -i bash
-# shellcheck shell=bash
+#!/usr/bin/env sh
 
 # Check if working tree is clean
 
 set -e
+script_dir=$(CDPATH="" cd -- "$(dirname -- "$0")" && pwd)
+cd "${script_dir}"
 
-REPO_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-cd "${REPO_DIR}"
+diff_stat_out=$(git diff HEAD --stat)
 
-if [[ $(git diff HEAD --stat) != '' ]]
+if [ -n "${diff_stat_out}" ]
 then
   echo 'Git working tree is dirty:'
-  git diff HEAD
+  diff_out=$(git diff HEAD)
+  echo 'vvvvvv'
+  echo "${diff_out}"
+  echo '^^^^^^'
   exit 1
 else
   echo 'Git working tree is clean.'
