@@ -1,9 +1,10 @@
+#!/usr/bin/env sh
+
 # A script which formats nix files
 
 set -e
-
-REPO_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-cd "${REPO_DIR}"
+script_dir=$(CDPATH="" cd -- "$(dirname -- "$0")" && pwd)
+cd "${script_dir}"
 
 prettier --write README.md
 prettier --write .github/workflows/*.yml

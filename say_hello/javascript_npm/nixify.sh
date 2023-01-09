@@ -1,7 +1,9 @@
-set -e
+#!/usr/bin/env sh
 
-LIB_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-cd "${LIB_DIR}"
+set -e
+script_dir=$(CDPATH="" cd -- "$(dirname -- "$0")" && pwd)
+cd "${script_dir}"
+
 rm -rf node_modules
 npm install --lockfile-version 2 --package-lock-only
 node2nix -- -16 --composition composition.nix --lock

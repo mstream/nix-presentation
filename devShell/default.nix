@@ -1,4 +1,5 @@
 { bash
+, coreutils
 , git
 , localDrvs
 , mkShell
@@ -16,6 +17,7 @@ mkShell {
   buildInputs =
     [
       bash
+      coreutils
       git
       nix
       nix-prefetch-git
