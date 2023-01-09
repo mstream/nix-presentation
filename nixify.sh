@@ -11,7 +11,7 @@ cd "${script_dir}"
 
 impure_modules="javascript_npm purescript_spago"
 
-echo "${impure_modules}" | tr '' '\n' | while read -r impure_module
+echo "${impure_modules}" | tr ' ' '\n' | while read -r impure_module
 do 
   "say_hello/${impure_module}"/nixify.sh
 done
