@@ -1,42 +1,45 @@
+#!/usr/bin/env sh
+
 set -e
 
-function normalizeGreeting() {
+normalizeGreeting() {
   GREETING="$1"
-  echo -n "${GREETING}" | sed "s/[(][^)]*[)]/()/g" | sed -e 's/\x1b\[[0-9;]*m//g'
+  printf "%s" "${GREETING}" \
+    | sed "s/[(][^)]*[)]/()/g" \
+    | sed -e 's/\x1b\[[0-9;]*m//g'
 }
 
-function shouldContain() {
-  local STRING="$1"
-  local SUBSTRING="$2"
-  if [[ "${STRING}" != *"${SUBSTRING}"* ]]
+shouldContain() {
+  _str="$1"
+  _substr="$2"
+  if ! (echo "${_str}" | grep -q "${_substr}")
   then
-    echo "\"${STRING}\" does not contain \"${SUBSTRING}\""
+    echo "\"${_str}\" does not contain \"${_substr}\""
     exit 1 
   fi
 }
 
-SAY_HELLO_LIBS=(
-  bash
-  java-sbt
-  javascript-npm
-  purescript-spago
-  scala-sbt
-)
+say_hello_libs="bash java-sbt javascript-npm purescript-spago scala-sbt"
 
-for SAY_HELLO_LIB_1 in "${SAY_HELLO_LIBS[@]}"
+echo "${say_hello_libs}" | tr ' ' '\n' | while read -r lib_1
 do
-  for SAY_HELLO_LIB_2 in "${SAY_HELLO_LIBS[@]}"
+  echo "${say_hello_libs}" | tr ' ' '\n' | while read -r lib_2
   do
-    PERSON_NAME="John"
-    CMD_1="say-hello-${SAY_HELLO_LIB_1}"
-    CMD_2="say-hello-${SAY_HELLO_LIB_2}"
-    OUT_1=$(normalizeGreeting "$("${CMD_1}" "${PERSON_NAME}")")
-    OUT_2=$(normalizeGreeting "$("${CMD_2}" "${PERSON_NAME}")")
-    shouldContain "${OUT_1}" "${PERSON_NAME}"
-    shouldContain "${OUT_2}" "${PERSON_NAME}"
-    if [[ "${OUT_1}" != "${OUT_2}" ]]
+    preson_name="John"
+    cmd_1="say-hello-${lib_1}"
+    cmd_2="say-hello-${lib_2}"
+    out_1=$(normalizeGreeting "$("${cmd_1}" "${preson_name}")")
+    out_2=$(normalizeGreeting "$("${cmd_2}" "${preson_name}")")
+    shouldContain "${out_1}" "${preson_name}"
+    shouldContain "${out_2}" "${preson_name}"
+    if [ "${out_1}" != "${out_2}" ]
     then
-      echo "${SAY_HELLO_LIB_1} library output \"${OUT_1}\" differs from ${SAY_HELLO_LIB_2} library output \"${OUT_2}\""
+      printf \
+        "%s library output \"%s\" differs from %s library output \"%s\"\n" \
+        "${lib_1}" \
+        "${out_1}" \
+        "${lib_2}" \
+        "${out_2}"
       exit 1 
     fi
   done

@@ -1,12 +1,14 @@
-function withColor() {
-  local COLOR_CODE="$1"
-  local TEXT="$2"
-  echo -e -n "\e[${COLOR_CODE}m${TEXT}\e[0m"
+#!/usr/bin/env sh
+
+withColor() {
+  _color_code="$1"
+  _text="$2"
+  printf "\e[%sm%s\e[0m" "${_color_code}" "${_text}"
 }
 
-PERSON_NAME="$1"
+person_name="$1"
 
-if [ -z "${PERSON_NAME}" ]
+if [ -z "${person_name}" ]
 then
   echo "The \"person name\" path parameter should be provided."
   exit 1
